@@ -1,12 +1,10 @@
 package javaautomation;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
 public class FileReader {
 
     private static List<String> emailList = new ArrayList<>();
@@ -15,7 +13,7 @@ public class FileReader {
 
     private static int currentIndexEmail = 0;
     private static int currentIndexContactName = 0;
-    private static int currentMessage = 0;
+    private static int currentIndexMessage = 0;
 
     public static void fileReader(String fileName, List<String> list) throws IOException {
         ClassLoader classLoader = FileReader.class.getClassLoader();
@@ -28,7 +26,7 @@ public class FileReader {
         }
 
     }
-    public synchronized String getNextEmail() throws IOException{
+    public static synchronized String getNextEmail() throws IOException{
         if(emailList.isEmpty()){
             fileReader("Email", emailList);
         }
@@ -36,13 +34,21 @@ public class FileReader {
         currentIndexEmail = (currentIndexEmail+1)%emailList.size();
         return getEmail;
     }
-    public synchronized String getNextContactName() throws IOException{
+    public static synchronized String getNextContactName() throws IOException{
         if(contactNameList.isEmpty()){
             fileReader("ContactName", contactNameList);
         }
         String nextContactName = contactNameList.get(currentIndexContactName);
         currentIndexContactName = (currentIndexContactName+1)%contactNameList.size();
         return nextContactName;
+    }
+    public static synchronized String getNextMessage() throws IOException{
+        if(messageList.isEmpty()){
+            fileReader("Message", messageList);
+        }
+        String nextMessage = messageList.get(currentIndexMessage);
+        currentIndexMessage = (currentIndexMessage+1)%messageList.size();
+        return nextMessage;
     }
 }
 

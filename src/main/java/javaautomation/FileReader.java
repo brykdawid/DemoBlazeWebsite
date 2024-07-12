@@ -10,10 +10,23 @@ public class FileReader {
     private static List<String> emailList = new ArrayList<>();
     private static List<String> contactNameList = new ArrayList<>();
     private static List<String> messageList = new ArrayList<>();
+    private static List<String> cityList = new ArrayList<>();
+    private static List<String> countryList = new ArrayList<>();
+    private static List<String> creditcardList = new ArrayList<>();
+    private static List<String> monthList = new ArrayList<>();
+    private static List<String> nameList = new ArrayList<>();
+    private static List<String> yearList = new ArrayList<>();
 
     private static int currentIndexEmail = 0;
     private static int currentIndexContactName = 0;
     private static int currentIndexMessage = 0;
+    private static int currentIndexCity = 0;
+    private static int currentIndexCountry = 0;
+    private static int currentIndexCreditcard = 0;
+    private static int currentIndexMonth = 0;
+    private static int currentIndexName = 0;
+    private static int currentIndexYear = 0;
+
 
     public static void fileReader(String fileName, List<String> list) throws IOException {
         ClassLoader classLoader = FileReader.class.getClassLoader();
@@ -49,6 +62,54 @@ public class FileReader {
         String nextMessage = messageList.get(currentIndexMessage);
         currentIndexMessage = (currentIndexMessage+1)%messageList.size();
         return nextMessage;
+    }
+    public static synchronized String getNextCity() throws IOException{
+        if(cityList.isEmpty()){
+            fileReader("City", cityList);
+        }
+        String nextCity = cityList.get(currentIndexCity);
+        currentIndexCity = (currentIndexCity+1)%cityList.size();
+        return nextCity;
+    }
+    public static synchronized String getNextCountry() throws IOException{
+        if(countryList.isEmpty()){
+            fileReader("Country", countryList);
+        }
+        String nextCountry = countryList.get(currentIndexCountry);
+        currentIndexCountry = (currentIndexCountry+1)%countryList.size();
+        return nextCountry;
+    }
+    public static synchronized String getNextCreditcard () throws IOException{
+        if(creditcardList.isEmpty()){
+            fileReader("Creditcard", creditcardList);
+        }
+        String nextCreditcard = creditcardList.get(currentIndexCreditcard);
+        currentIndexCreditcard = (currentIndexCreditcard+1)%creditcardList.size();
+        return nextCreditcard;
+    }
+    public static synchronized String getNextMonth() throws IOException{
+        if(monthList.isEmpty()){
+            fileReader("Month", monthList);
+        }
+        String nextMonth = monthList.get(currentIndexMonth);
+        currentIndexMonth = (currentIndexMonth+1)%monthList.size();
+        return nextMonth;
+    }
+    public static synchronized String getNextName () throws IOException{
+        if(nameList.isEmpty()){
+            fileReader("Name", nameList);
+        }
+        String nextName = nameList.get(currentIndexName);
+        currentIndexName = (currentIndexName+1)%nameList.size();
+        return nextName;
+    }
+    public static synchronized String getNextYear() throws IOException {
+        if(yearList.isEmpty()){
+            fileReader("Year", yearList);
+        }
+        String nextYear = yearList.get(currentIndexYear);
+        currentIndexYear=(currentIndexYear+1)%yearList.size();
+        return nextYear;
     }
 }
 

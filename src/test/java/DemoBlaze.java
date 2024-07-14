@@ -209,4 +209,84 @@ public class DemoBlaze {
         }
         driver.quit();
     }
+
+    @Test
+    public void registerLogin() {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        for (int i = 0; i <= 15; i++)
+            for (boolean repeatProcess = true; repeatProcess; ) {
+                try {
+                    Random rand = new Random();
+                    int scenario;
+                    int scenario2;
+                    String name = FileReader.getNextUsername();
+                    String pass = FileReader.getNextPassword();
+                    driver.get("https://www.demoblaze.com/index.html");
+
+                    WebElement signUp = driver.findElement(By.linkText("Sign up"));
+                    signUp.click();
+
+                    WebElement username = wait.until(ExpectedConditions.elementToBeClickable(By.id("sign-username")));
+                    WebElement password = wait.until(ExpectedConditions.elementToBeClickable(By.id("sign-password")));
+                    username.sendKeys(name);
+                    password.sendKeys(pass);
+
+                    WebElement close = driver.findElement(By.xpath("//div[@id='signInModal'] //div[@class='modal-content'] //div[@class='modal-footer'] //button[@class='btn btn-secondary']"));
+                    WebElement confirm = driver.findElement(By.xpath("//div[@id='signInModal'] //div[@class='modal-content'] //div[@class='modal-footer'] //button[@class='btn btn-primary']"));
+
+                    scenario = rand.nextInt(2) + 1;
+                    switch (scenario) {
+                        case 1:
+                            close.click();
+                            System.out.printf("SIGN UP CLOSE \n");
+                            continue;
+                        case 2:
+                            confirm.click();
+                            System.out.printf("SIGN UP CONTINUE \n");
+                            break;
+                    }
+
+                    String alertText = wait.until(ExpectedConditions.alertIsPresent()).getText();
+                    System.out.printf(alertText + "\n");
+                    driver.switchTo().alert().accept();
+                    if (alertText.equals("This user already exist.")) {
+                        System.out.printf("USER ALREADY EXISTS, NEXT USER" + "\n");
+                        continue;
+                    }
+
+                    WebElement login = driver.findElement(By.id("login2"));
+                    login.click();
+
+                    WebElement usernameLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginusername")));
+                    WebElement passwordLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginpassword")));
+
+                    usernameLogin.sendKeys(name);
+                    passwordLogin.sendKeys(pass);
+
+                    WebElement closeLogin = driver.findElement(By.xpath("//div[@id='logInModal'] //div[@class='modal-content'] //div[@class='modal-footer'] //button[@class='btn btn-secondary']"));
+                    WebElement confirmLogin = driver.findElement(By.xpath("//div[@id='logInModal'] //div[@class='modal-content'] //div[@class='modal-footer'] //button[@class='btn btn-primary']"));
+
+                    scenario2 = rand.nextInt(2) + 1;
+                    switch (scenario2) {
+                        case 1:
+                            closeLogin.click();
+                            System.out.printf("LOGIN CLOSE \n");
+                            continue;
+                        case 2:
+                            confirmLogin.click();
+                            System.out.printf("LOGIN SUCCESSFUL \n");
+                            break;
+                    }
+                    repeatProcess = false;
+
+                } catch (Exception e) {
+                    System.out.printf("FAIL");
+                    throw new RuntimeException(e);
+                }
+            }
+        driver.quit();
+    }
 }
+

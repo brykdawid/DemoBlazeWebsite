@@ -16,6 +16,8 @@ public class FileReader {
     private static List<String> monthList = new ArrayList<>();
     private static List<String> nameList = new ArrayList<>();
     private static List<String> yearList = new ArrayList<>();
+    private static List<String> usernameList = new ArrayList<>();
+    private static List<String> passwordList = new ArrayList<>();
 
     private static int currentIndexEmail = 0;
     private static int currentIndexContactName = 0;
@@ -26,6 +28,8 @@ public class FileReader {
     private static int currentIndexMonth = 0;
     private static int currentIndexName = 0;
     private static int currentIndexYear = 0;
+    private static int currentIndexUsername = 0;
+    private static int currentIndexPassword = 0;
 
 
     public static void fileReader(String fileName, List<String> list) throws IOException {
@@ -110,6 +114,22 @@ public class FileReader {
         String nextYear = yearList.get(currentIndexYear);
         currentIndexYear=(currentIndexYear+1)%yearList.size();
         return nextYear;
+    }
+    public static synchronized String getNextUsername() throws IOException{
+        if(usernameList.isEmpty()){
+            fileReader("Username", usernameList);
+        }
+        String nextUsername = usernameList.get(currentIndexUsername);
+        currentIndexUsername = (currentIndexUsername+1)%usernameList.size();
+        return nextUsername;
+    }
+    public static synchronized String getNextPassword() throws IOException{
+        if(passwordList.isEmpty()){
+            fileReader("Password", passwordList);
+        }
+        String nextPassword = passwordList.get(currentIndexPassword);
+        currentIndexPassword = (currentIndexPassword+1)%passwordList.size();
+        return nextPassword;
     }
 }
 

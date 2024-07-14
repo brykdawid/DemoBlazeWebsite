@@ -55,7 +55,7 @@ public class DemoBlaze {
 
 
         } catch (Exception e) {
-            System.out.printf("FAIL");
+            System.out.print("FAIL");
         }
     }
 
@@ -150,11 +150,11 @@ public class DemoBlaze {
                 switch (randomScenario) {
                     case 1:
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Delete"))).click();
-                        System.out.printf("PRODUCT DELETED \n");
+                        System.out.print("PRODUCT DELETED \n");
                         Thread.sleep(1000);
                         continue;
                     case 2:
-                        System.out.printf("PLACE ORDER \n");
+                        System.out.print("PLACE ORDER \n");
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[text()='Place Order']"))).click();
                         break;
 
@@ -183,18 +183,18 @@ public class DemoBlaze {
                 randomScenario2 = rand.nextInt(2) + 1;
                 switch (randomScenario2) {
                     case 1:
-                        System.out.printf("ORDER PLACED\n");
+                        System.out.print("ORDER PLACED\n");
                         Thread.sleep(1500);
                         driver.findElement(By.xpath("//div[@id='orderModal'] //div[@class='modal-content'] //div[@class='modal-footer'] //button[@class='btn btn-primary']")).click();
                         WebElement receipt = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("sweet-alert")));
-                        System.out.printf(receipt.getText() + "\n");
+                        System.out.print(receipt.getText() + "\n");
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("confirm")));
                         Thread.sleep(1000);
                         break;
                     case 2:
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='orderModal'] //div[@class='modal-content'] //div[@class='modal-footer'] //button[@data-dismiss='modal']"))).click();
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Delete"))).click();
-                        System.out.printf("TRANSACTION ABORTED \n");
+                        System.out.print("TRANSACTION ABORTED \n");
                         Thread.sleep(1000);
                         continue;
 
@@ -204,7 +204,7 @@ public class DemoBlaze {
 
 
             } catch (Exception e) {
-                System.out.printf("FAIL");
+                System.out.print("FAIL");
             }
         }
         driver.quit();
@@ -240,19 +240,19 @@ public class DemoBlaze {
                     switch (scenario) {
                         case 1:
                             close.click();
-                            System.out.printf("SIGN UP CLOSE \n");
+                            System.out.print("SIGN UP CLOSE \n");
                             continue;
                         case 2:
                             confirm.click();
-                            System.out.printf("SIGN UP CONTINUE \n");
+                            System.out.print("SIGN UP CONTINUE \n");
                             break;
                     }
 
                     String alertText = wait.until(ExpectedConditions.alertIsPresent()).getText();
-                    System.out.printf(alertText + "\n");
+                    System.out.print(alertText + "\n");
                     driver.switchTo().alert().accept();
                     if (alertText.equals("This user already exist.")) {
-                        System.out.printf("USER ALREADY EXISTS, NEXT USER" + "\n");
+                        System.out.print("USER ALREADY EXISTS, NEXT USER" + "\n");
                         continue;
                     }
 
@@ -272,17 +272,17 @@ public class DemoBlaze {
                     switch (scenario2) {
                         case 1:
                             closeLogin.click();
-                            System.out.printf("LOGIN CLOSE \n");
+                            System.out.print("LOGIN CLOSE \n");
                             continue;
                         case 2:
                             confirmLogin.click();
-                            System.out.printf("LOGIN SUCCESSFUL \n");
+                            System.out.print("LOGIN SUCCESSFUL \n");
                             break;
                     }
                     repeatProcess = false;
 
                 } catch (Exception e) {
-                    System.out.printf("FAIL");
+                    System.out.print("FAIL");
                     throw new RuntimeException(e);
                 }
             }
